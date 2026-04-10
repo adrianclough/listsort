@@ -1,18 +1,24 @@
 import readchar
 import rich
 from rich.panel import Panel
-from items import Item
+from models import Item, SortMode
+
+item_colour = "#A5D6FF"
+pivot_colour = {SortMode.ROUGH: "#FF7B72", SortMode.TOP: "#D2A8FF"}
+
 
 def display(item: Item, colour: str) -> str:
     return f"[{colour}]{item.entry}[/]"
 
-def compare(item: Item, pivot: Item, above: bool, rough: bool) -> bool:
+def compare(item: Item, pivot: Item, above: bool, mode: SortMode) -> bool:
     """Ask user to compare pair of displayed items"""
 
-    item_colour = "#A5D6FF"
-    pivot_colour = ["#D2A8FF", "#FF7B72"]
+    colour = pivot_colour[mode]
 
-    rich.print(Panel(display(item, item_colour) + "\n" + display(pivot, pivot_colour[rough])), border_style="dim")
+    if above:
+        rich.print(Panel(display(item, item_colour) + "\n\n" + display(pivot, colour), border_style="dim"))
+    else:
+        rich.print(Panel(display(pivot, colour) + "\n\n" + display(item, item_colour), border_style="dim"))
 
     while True:
         key = readchar.readkey()
@@ -21,10 +27,11 @@ def compare(item: Item, pivot: Item, above: bool, rough: bool) -> bool:
         elif key == readchar.key.DOWN:
             return False
         else:
-            print("Invalid key. Press UP or DOWN.")
+            rich.print("Invalid key. Press UP or DOWN.")
 
-    
 
-# def compare(item_a: Item, item_b: Item) -> bool:
-#     """Ask user to compare two items."""
-#     print(f"{compare(item_a)} v.s. {compare(item_b)}")
+if __name__ == "__main__":
+    a = Item("Buy groceries", False)
+    b = Item("Call dentist", False)
+    result = compare(a, b, above=True, mode=SortMode.ROUGH)
+    print(result)
