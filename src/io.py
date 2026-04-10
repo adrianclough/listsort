@@ -1,4 +1,4 @@
-from items import Item
+from models import Item
 
 
 def read_txt(filepath: str) -> list[Item]: 

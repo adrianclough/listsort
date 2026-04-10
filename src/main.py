@@ -1,4 +1,4 @@
-from items import Item
+from models import Item
 from io import read_txt, write_txt
 
 
