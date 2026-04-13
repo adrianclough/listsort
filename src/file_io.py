@@ -18,15 +18,20 @@ def read_txt(filepath: str) -> list[Item]:
     return items
 
 
+def _add_tombstone(item: Item) -> str:
+    if item.underlined:
+        return f"▮{item.entry}"
+    else:
+        return item.entry
+    
 
-def write_txt(items: list[Item], filepath: str):
-    lines = []
-    for item in items:
-        if item.underlined:
-            lines.append(f"▮{item.entry}")
-        else:
-            lines.append(item.entry)
-    sorted_list_as_text = "\n".join(lines)
+
+def write_txt(sorted_top: list[Item],rest: list[Item], filepath: str):
+    """Write sorted list in expected format"""
+
+    sorted_list = [_add_tombstone(item) for item in sorted_top] + [""] + [_add_tombstone(item) for item in rest]
+
+    sorted_list_as_text = "\n".join(sorted_list)   
 
     with open(filepath, "w", encoding="utf-8") as l:
         l.write(sorted_list_as_text)

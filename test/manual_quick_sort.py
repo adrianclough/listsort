@@ -2,19 +2,19 @@ import readchar
 from math import floor
 
 
-def quick_sort(test_list: list[int]):
-    if len(test_list) < 2:
-        return test_list
+def quick_sort(arr: list[int]):
+    if len(arr) < 2:
+        return arr
     
     top_top = []
     top_bottom = []
     bottom_top = []
     bottom_bottom = []
 
-    pivot = floor(len(test_list)/2)
+    pivot = floor(len(arr)/2)
 
-    for entry in test_list[pivot + 1:]:
-        print(f"{entry}" + " t " + f"{test_list[pivot]}")
+    for entry in arr[pivot + 1:]:
+        print(f"{entry}" + " t " + f"{arr[pivot]}")
         while True:
             key = readchar.readkey()
             if key == readchar.key.UP:
@@ -27,8 +27,8 @@ def quick_sort(test_list: list[int]):
                 print("Invalid key. Press UP or DOWN.")
                 
    
-    for entry in test_list[:pivot]:
-        print(f"{entry}" + " b " + f"{test_list[pivot]}")
+    for entry in arr[:pivot]:
+        print(f"{entry}" + " b " + f"{arr[pivot]}")
         while True:
             key = readchar.readkey()
             if key == readchar.key.UP:
@@ -42,7 +42,7 @@ def quick_sort(test_list: list[int]):
                 
    
 
-    return quick_sort(bottom_bottom + bottom_top) + [test_list[pivot]] + quick_sort(top_bottom + top_top)
+    return quick_sort(bottom_bottom + bottom_top) + [arr[pivot]] + quick_sort(top_bottom + top_top)
 
 
 if __name__ == "__main__":
