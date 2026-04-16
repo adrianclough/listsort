@@ -10,7 +10,7 @@ pivot_colour = {SortMode.ROUGH: "#FF7B72", SortMode.TOP: "#D2A8FF"}
 def display(item: Item, colour: str) -> str:
     return f"[{colour}]{item.entry}[/]"
 
-def compare(item: Item, pivot: Item, above: bool, mode: SortMode) -> bool:
+def compare(item: Item, pivot: Item, above: bool, mode: SortMode) -> bool | None:
     """Ask user to compare pair of displayed items"""
 
     colour = pivot_colour[mode]
@@ -26,10 +26,13 @@ def compare(item: Item, pivot: Item, above: bool, mode: SortMode) -> bool:
             return True
         elif key == readchar.key.DOWN:
             return False
+        elif key == readchar.key.BACKSPACE:
+            return None
         else:
-            rich.print("Invalid key. Press UP or DOWN.")
+            rich.print("Invalid key. Press UP, DOWN, or delete.")
 
 
+#For testing "compare"
 if __name__ == "__main__":
     a = Item("Buy groceries", False)
     b = Item("Call dentist", False)

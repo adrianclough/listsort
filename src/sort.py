@@ -14,15 +14,17 @@ def top_sort(arr: list[Item]) -> list[Item]:
     pivot_index = len(arr)//2
 
     for entry in reversed(arr[pivot_index + 1:]):
-        if compare(entry, arr[pivot_index], False, SortMode.TOP):
+        result = compare(entry, arr[pivot_index], False, SortMode.TOP)
+        if result is True:
             top_top.append(entry)
-        else:
+        elif result is False:
             bottom_top.append(entry)
 
     for entry in reversed(arr[:pivot_index]):
-        if compare(entry, arr[pivot_index], True, SortMode.TOP):
+        result = compare(entry, arr[pivot_index], True, SortMode.TOP)
+        if result is True:
             top_bottom.append(entry)
-        else:
+        elif result is False:
             bottom_bottom.append(entry)
 
     top_top = list(reversed(top_top))
@@ -48,15 +50,17 @@ def sort(arr: list[Item], n: int = 10) -> tuple[list[Item], list[Item]]:
         pivot_index = len(arr)//2
 
         for entry in reversed(arr[pivot_index + 1:]):
-            if compare(entry, arr[pivot_index], False, SortMode.ROUGH):
+            result = compare(entry, arr[pivot_index], False, SortMode.ROUGH)
+            if result is True:
                 top_top.append(entry)
-            else:
+            elif result is False:
                 bottom_top.append(entry)
 
         for entry in reversed(arr[:pivot_index]):
-            if compare(entry, arr[pivot_index], True, SortMode.ROUGH):
+            result = compare(entry, arr[pivot_index], True, SortMode.ROUGH) 
+            if result is True:
                 top_bottom.append(entry)
-            else:
+            elif result is False:
                 bottom_bottom.append(entry)
 
         top_top = list(reversed(top_top))

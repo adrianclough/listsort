@@ -17,4 +17,4 @@ def main(filepath: str = "data/unsorted_todo.txt", write_path: str = "data/sorte
 
 
 if __name__ == "__main__":
-    main()
+    main(filepath = "data/test_numbers.txt")

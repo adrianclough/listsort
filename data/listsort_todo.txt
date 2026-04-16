@@ -3,3 +3,4 @@ display choice
 Add option to go back
 Add option to edit entry
 Handle empty lines
+Rewrite main.py to accept arguments
