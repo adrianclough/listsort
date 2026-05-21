@@ -1,8 +1,11 @@
+import argparse
 from models import Item
 from file_io import read_txt, write_txt
+from pathlib import Path
 from sort import sort
 
-def main(filepath: str = "data/unsorted_todo.txt", write_path: str = "data/sorted_todo.txt"):
+
+def main(filepath: str | Path, write_path: str | Path):
     """Orchstrate applicatoin of sort to todo list"""
 
     unsorted_list = read_txt(filepath)
@@ -17,4 +20,14 @@ def main(filepath: str = "data/unsorted_todo.txt", write_path: str = "data/sorte
 
 
 if __name__ == "__main__":
-    main(filepath = "data/test_numbers.txt")
+    parser = argparse.ArgumentParser()
+    parser.add_argument("input")
+    parser.add_argument("-o", "--output")
+    args = parser.parse_args()
+
+    if not args.output:
+        p = Path(args.input)
+        args.output = p.parent / (p.stem + '_sorted' + '.txt')
+
+    main(args.input, args.output)
+
