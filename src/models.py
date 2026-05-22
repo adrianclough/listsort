@@ -1,10 +1,10 @@
+from dataclasses import dataclass
 from enum import Enum
 
-
+@dataclass
 class Item:
-    def __init__(self, entry: str, underlined: bool):
-        self.entry = entry
-        self.underlined = underlined
+        entry : str
+        underlined : bool
 
 
 class SortMode(Enum):

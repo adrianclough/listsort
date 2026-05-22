@@ -3,3 +3,6 @@ Add option to go back
 Add option to edit entry
 Delete duplicates 
 Add listsort launcher script to ~/.local/bin
+create Safari bookmark type
+launch link
+crate app to display todo lists 
