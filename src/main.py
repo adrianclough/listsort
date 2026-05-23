@@ -31,3 +31,4 @@ if __name__ == "__main__":
 
     main(args.input, args.output)
 
+#filepath = "data/test_numbers.txt" for testing
