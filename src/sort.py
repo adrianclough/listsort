@@ -71,3 +71,19 @@ def sort(arr: list[Item], n: int = 10) -> tuple[list[Item], list[Item]]:
         recursed_top, recursed_bottom = sort(top_top + top_bottom, n)
 
         return recursed_top, recursed_bottom + [arr[pivot_index]] + bottom_top + bottom_bottom
+    
+
+
+def dedupe(items: list[Item]) ->  tuple[list[Item], set[str]]:
+    dedupe_items = {}
+    duplicates = set()
+    for item in items:
+        entry = item.entry.strip()
+        if entry not in dedupe_items:
+            dedupe_items[entry] = item
+        else: 
+            duplicates.add(entry)
+            if item.underlined: 
+                dedupe_items[entry].underlined = True
+            
+    return list(dedupe_items.values()), duplicates

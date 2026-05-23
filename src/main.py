@@ -2,7 +2,8 @@ import argparse
 from models import Item
 from file_io import read_txt, write_txt
 from pathlib import Path
-from sort import sort
+from sort import sort, dedupe
+from interaction import report_duplicates
 
 
 def main(filepath: str | Path, write_path: str | Path):
@@ -13,6 +14,10 @@ def main(filepath: str | Path, write_path: str | Path):
     if len(unsorted_list) == 0:
         print("Congratulations, your todo list ist empty!")
         return
+    
+    unsorted_list, duplicates = dedupe(unsorted_list)
+
+    report_duplicates(duplicates)
 
     sorted_top, rest = sort(unsorted_list)
 

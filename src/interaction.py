@@ -32,6 +32,11 @@ def compare(item: Item, pivot: Item, above: bool, mode: SortMode) -> bool | None
             rich.print("Invalid key. Press UP, DOWN, or delete.")
 
 
+def report_duplicates(duplicates: set[str]):
+    if duplicates: 
+        rich.print(f"[#e5ba7d]Found {len(duplicates)} duplicate{'s' if len(duplicates) > 1 else ''}:[/#e5ba7d] \n{'\n'.join(sorted(duplicates))}")
+
+
 #For testing "compare"
 if __name__ == "__main__":
     a = Item("Buy groceries", False)
