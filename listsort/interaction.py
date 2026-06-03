@@ -1,7 +1,7 @@
 import readchar
 import rich
 from rich.panel import Panel
-from models import Item, SortMode
+from listsort.models import Item, SortMode
 
 item_colour = "#A5D6FF"
 pivot_colour = {SortMode.ROUGH: "#FF7B72", SortMode.TOP: "#D2A8FF"}

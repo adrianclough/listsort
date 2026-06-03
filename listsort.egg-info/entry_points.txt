@@ -1,0 +1,2 @@
+[console_scripts]
+listsort = listsort.main:main_cli

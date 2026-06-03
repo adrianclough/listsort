@@ -1,9 +1,9 @@
 import argparse
-from models import Item
-from file_io import read_txt, write_txt
+from listsort.models import Item
+from listsort.file_io import read_txt, write_txt
 from pathlib import Path
-from sort import sort, dedupe
-from interaction import report_duplicates
+from listsort.sort import sort, dedupe
+from listsort.interaction import report_duplicates
 
 
 def main(filepath: str | Path, write_path: str | Path):
@@ -24,7 +24,7 @@ def main(filepath: str | Path, write_path: str | Path):
     write_txt(sorted_top, rest, write_path)
 
 
-if __name__ == "__main__":
+def main_cli() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input")
     parser.add_argument("-o", "--output")
@@ -35,5 +35,10 @@ if __name__ == "__main__":
         args.output = p.parent / (p.stem + '_sorted' + '.txt')
 
     main(args.input, args.output)
+
+
+if __name__ == "__main__":
+    main_cli()
+
 
 #filepath = "data/test_numbers.txt" for testing

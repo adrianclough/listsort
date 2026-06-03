@@ -1,5 +1,5 @@
-from models import Item, SortMode
-from interaction import compare
+from listsort.models import Item, SortMode
+from listsort.interaction import compare
 
 def top_sort(arr: list[Item]) -> list[Item]:
     """Sort top N-1 entries of list exhaustively."""

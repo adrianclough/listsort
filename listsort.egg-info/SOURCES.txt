@@ -1,0 +1,14 @@
+pyproject.toml
+listsort/__init__.py
+listsort/file_io.py
+listsort/interaction.py
+listsort/main.py
+listsort/models.py
+listsort/sort.py
+listsort.egg-info/PKG-INFO
+listsort.egg-info/SOURCES.txt
+listsort.egg-info/dependency_links.txt
+listsort.egg-info/entry_points.txt
+listsort.egg-info/requires.txt
+listsort.egg-info/top_level.txt
+test/test_delete.py
