@@ -1,15 +1,26 @@
 import argparse
-from listsort.models import Item
-from listsort.file_io import read_txt, write_txt
 from pathlib import Path
-from listsort.sort import sort, dedupe
+import sys
+from listsort.file_io import read, write
+from listsort.formats import parsers_serializers
 from listsort.interaction import report_duplicates
+from listsort.sort import sort, dedupe
 
 
 def main(filepath: str | Path, write_path: str | Path):
-    """Orchstrate applicatoin of sort to todo list"""
+    """Orchestrate application of sort to todo list"""
 
-    unsorted_list = read_txt(filepath)
+    file_format = Path(filepath).suffix[1:]
+
+    if not file_format in parsers_serializers:
+        print("File extension not supported.")
+        return
+
+    unsorted_list_as_text = read(filepath)
+
+    parse, serialize = parsers_serializers[file_format]
+
+    unsorted_list = parse(unsorted_list_as_text)
 
     if len(unsorted_list) == 0:
         print("Congratulations, your todo list ist empty!")
@@ -21,10 +32,15 @@ def main(filepath: str | Path, write_path: str | Path):
 
     sorted_top, rest = sort(unsorted_list)
 
-    write_txt(sorted_top, rest, write_path)
+    sorted_list_as_text = serialize(sorted_top, rest)
+
+    write(write_path, sorted_list_as_text)
 
 
 def main_cli() -> None:
+    if not sys.stdin.isatty():  # temporary copy paste functionality
+        pass
+
     parser = argparse.ArgumentParser()
     parser.add_argument("input")
     parser.add_argument("-o", "--output")

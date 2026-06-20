@@ -1,4 +1,4 @@
-implement workflow for personal todo list
+implement pbpaste | listsort | pbcopy
 display choice
 Add option to go back
 Add option to edit entry
@@ -6,4 +6,5 @@ create Safari bookmark type
 launch link
 add functionality to exit program
 add help functionality
-crate app to display todo lists 
+create TUI app to display todo lists
+create app to display todo lists 
