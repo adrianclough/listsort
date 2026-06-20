@@ -1,4 +1,3 @@
-implement pbpaste | listsort | pbcopy
 display choice
 Add option to go back
 Add option to edit entry

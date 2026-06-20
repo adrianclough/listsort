@@ -7,18 +7,14 @@ from listsort.interaction import report_duplicates
 from listsort.sort import sort, dedupe
 
 
-def main(filepath: str | Path, write_path: str | Path):
+def main(unsorted_list_as_text: str, file_extension: str) -> str:
     """Orchestrate application of sort to todo list"""
 
-    file_format = Path(filepath).suffix[1:]
-
-    if not file_format in parsers_serializers:
+    if not file_extension in parsers_serializers:
         print("File extension not supported.")
         return
 
-    unsorted_list_as_text = read(filepath)
-
-    parse, serialize = parsers_serializers[file_format]
+    parse, serialize = parsers_serializers[file_extension]
 
     unsorted_list = parse(unsorted_list_as_text)
 
@@ -32,14 +28,20 @@ def main(filepath: str | Path, write_path: str | Path):
 
     sorted_top, rest = sort(unsorted_list)
 
-    sorted_list_as_text = serialize(sorted_top, rest)
+    return serialize(sorted_top, rest)
 
-    write(write_path, sorted_list_as_text)
 
 
 def main_cli() -> None:
     if not sys.stdin.isatty():  # temporary copy paste functionality
-        pass
+        unsorted_list_as_text = sys.stdin.read()
+        pipe_out = sys.stdout
+        sys.stdin = open('/dev/tty')
+        sys.stdout = open('/dev/tty', 'w')
+        sorted_list_as_text = main(unsorted_list_as_text, 'txt')
+        if sorted_list_as_text: 
+            pipe_out.write(sorted_list_as_text)
+        return
 
     parser = argparse.ArgumentParser()
     parser.add_argument("input")
@@ -50,11 +52,14 @@ def main_cli() -> None:
         p = Path(args.input)
         args.output = p.parent / (p.stem + '_sorted' + '.txt')
 
-    main(args.input, args.output)
+    unsorted_list_as_text = read(args.input)
 
+    file_extension = Path(args.input).suffix[1:]
+
+    sorted_list_as_text = main(unsorted_list_as_text, file_extension)
+
+    if sorted_list_as_text:
+        write(args.output, sorted_list_as_text)
 
 if __name__ == "__main__":
     main_cli()
-
-
-#filepath = "data/test_numbers.txt" for testing
