@@ -1,9 +1,0 @@
-display choice
-Add option to go back
-Add option to edit entry
-create Safari bookmark type
-launch link
-add functionality to exit program
-add help functionality
-create TUI app to display todo lists
-create app to display todo lists 
