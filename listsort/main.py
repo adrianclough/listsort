@@ -6,6 +6,7 @@ from listsort.formats import parsers_serializers
 from listsort.interaction import report_duplicates
 from listsort.sort import sort, dedupe
 
+# displayed_choices = 5
 
 def main(unsorted_list_as_text: str, file_extension: str) -> str:
     """Orchestrate application of sort to todo list"""
@@ -26,6 +27,8 @@ def main(unsorted_list_as_text: str, file_extension: str) -> str:
 
     report_duplicates(duplicates)
 
+    # TODO initialise logger
+
     sorted_top, rest = sort(unsorted_list)
 
     return serialize(sorted_top, rest)
@@ -33,6 +36,7 @@ def main(unsorted_list_as_text: str, file_extension: str) -> str:
 
 
 def main_cli() -> None:
+    """Handle input from cli and pass to main()"""
     if not sys.stdin.isatty():  # temporary copy paste functionality
         unsorted_list_as_text = sys.stdin.read()
         pipe_out = sys.stdout

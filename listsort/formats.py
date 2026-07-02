@@ -27,6 +27,6 @@ def serialize_txt(sorted_top: list[Item],rest: list[Item]):
     return "\n".join(sorted_list)   
 
 
-parsers_serializers = {
+parsers_serializers = {                     # will add more KV pairs to support future formats 
     "txt": (parse_txt, serialize_txt)
 }

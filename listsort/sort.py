@@ -1,5 +1,6 @@
 from listsort.models import Item, SortMode
 from listsort.interaction import compare
+from listsort.log import logger # TODO verify name
 
 def top_sort(arr: list[Item]) -> list[Item]:
     """Sort top N-1 entries of list exhaustively."""
@@ -50,14 +51,14 @@ def sort(arr: list[Item], n: int = 10) -> tuple[list[Item], list[Item]]:
         pivot_index = len(arr)//2
 
         for entry in reversed(arr[pivot_index + 1:]):
-            result = compare(entry, arr[pivot_index], False, SortMode.ROUGH)
+            result = compare(entry, arr[pivot_index], False, SortMode.ROUGH) # TODO input & update logger
             if result is True:
                 top_top.append(entry)
             elif result is False:
                 bottom_top.append(entry)
 
         for entry in reversed(arr[:pivot_index]):
-            result = compare(entry, arr[pivot_index], True, SortMode.ROUGH) 
+            result = compare(entry, arr[pivot_index], True, SortMode.ROUGH) # TODO input & update logger
             if result is True:
                 top_bottom.append(entry)
             elif result is False:

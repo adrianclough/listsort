@@ -10,6 +10,6 @@
 1. create TUI app to display todo lists
 1. create app to display todo lists 
 
-# Strategy for solving undo
+### Strategy for solving undo
 
-
+`sort` gets an `int` counter parameter. If `int == len(logger)`, then it asks for input from user. If `int < len(logger)`, then it performs instruction in `logger` and skips output.

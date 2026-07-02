@@ -15,9 +15,12 @@ def compare(item: Item, pivot: Item, above: bool, mode: SortMode) -> bool | None
 
     colour = pivot_colour[mode]
 
+    # TODO abstract away below to function
     if above:
+        # TODO modify to sequence of panels
         rich.print(Panel(display(item, item_colour) + "\n\n" + display(pivot, colour), border_style="dim"))
     else:
+        # TODO modify to sequence of panels
         rich.print(Panel(display(pivot, colour) + "\n\n" + display(item, item_colour), border_style="dim"))
 
     while True:
@@ -37,7 +40,7 @@ def report_duplicates(duplicates: set[str]):
         rich.print(f"[#e5ba7d]Found {len(duplicates)} duplicate{'s' if len(duplicates) > 1 else ''}:[/#e5ba7d] \n{'\n'.join(sorted(duplicates))}")
 
 
-#For testing "compare"
+#For testing `compare`
 if __name__ == "__main__":
     a = Item("Buy groceries", False)
     b = Item("Call dentist", False)
