@@ -5,10 +5,12 @@ from listsort.file_io import read, write
 from listsort.formats import parsers_serializers
 from listsort.interaction import report_duplicates
 from listsort.sort import sort, dedupe
+from rich.live import Live
+from rich.panel import Panel
+import time
 
-# displayed_choices = 5
 
-def main(unsorted_list_as_text: str, file_extension: str) -> str:
+def main(unsorted_list_as_text: str, file_extension: str) -> str: 
     """Orchestrate application of sort to todo list"""
 
     if not file_extension in parsers_serializers:
@@ -27,9 +29,12 @@ def main(unsorted_list_as_text: str, file_extension: str) -> str:
 
     report_duplicates(duplicates)
 
-    # TODO initialise logger
+    # TODO initialise `log`
 
-    sorted_top, rest = sort(unsorted_list)
+    with Live(refresh_per_second=10) as live:
+        sorted_top, rest = sort(unsorted_list, live)
+        live.update(Panel("[green]Done![/green]")) # TODO change hew of green
+        time.sleep(1)
 
     return serialize(sorted_top, rest)
 

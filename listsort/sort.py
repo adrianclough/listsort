@@ -1,8 +1,9 @@
 from listsort.models import Item, SortMode
 from listsort.interaction import compare
-from listsort.log import logger # TODO verify name
+from rich.live import Live
 
-def top_sort(arr: list[Item]) -> list[Item]:
+
+def top_sort(arr: list[Item], live: Live) -> list[Item]:    # TODO `log` parameter
     """Sort top N-1 entries of list exhaustively."""
     if len(arr) < 2: 
         return arr
@@ -15,14 +16,16 @@ def top_sort(arr: list[Item]) -> list[Item]:
     pivot_index = len(arr)//2
 
     for entry in reversed(arr[pivot_index + 1:]):
-        result = compare(entry, arr[pivot_index], False, SortMode.TOP)
+        result = compare(entry, arr[pivot_index], False, SortMode.TOP, live) # TODO `log` parameter
+        # TODO update `log`
         if result is True:
             top_top.append(entry)
         elif result is False:
             bottom_top.append(entry)
 
     for entry in reversed(arr[:pivot_index]):
-        result = compare(entry, arr[pivot_index], True, SortMode.TOP)
+        result = compare(entry, arr[pivot_index], True, SortMode.TOP, live) # TODO `log` parameter
+        # TODO update `log`
         if result is True:
             top_bottom.append(entry)
         elif result is False:
@@ -33,14 +36,15 @@ def top_sort(arr: list[Item]) -> list[Item]:
     bottom_top = list(reversed(bottom_top))
     bottom_bottom = list(reversed(bottom_bottom))
 
+    return top_sort(top_top + top_bottom, live) + [arr[pivot_index]] + top_sort(bottom_top + bottom_bottom, live)
 
-    return top_sort(top_top + top_bottom) + [arr[pivot_index]] + top_sort(bottom_top + bottom_bottom)
 
-def sort(arr: list[Item], n: int = 10) -> tuple[list[Item], list[Item]]:
+
+def sort(arr: list[Item], live: Live, n: int = 10) -> tuple[list[Item], list[Item]]: # TODO `log` parameter
     """Sort todo list according to Adrian's algorithm."""
 
     if len(arr) < n:
-        return top_sort(arr), []
+        return top_sort(arr, live), []
     
     else:
         top_top = []
@@ -51,14 +55,17 @@ def sort(arr: list[Item], n: int = 10) -> tuple[list[Item], list[Item]]:
         pivot_index = len(arr)//2
 
         for entry in reversed(arr[pivot_index + 1:]):
-            result = compare(entry, arr[pivot_index], False, SortMode.ROUGH) # TODO input & update logger
+            result = compare(entry, arr[pivot_index], False, SortMode.ROUGH, live) # TODO `log` parameter
+            # TODO update `log`
             if result is True:
                 top_top.append(entry)
             elif result is False:
                 bottom_top.append(entry)
 
+
         for entry in reversed(arr[:pivot_index]):
-            result = compare(entry, arr[pivot_index], True, SortMode.ROUGH) # TODO input & update logger
+            result = compare(entry, arr[pivot_index], True, SortMode.ROUGH, live) # TODO `log` parameter
+            # TODO update `log`
             if result is True:
                 top_bottom.append(entry)
             elif result is False:
@@ -69,7 +76,7 @@ def sort(arr: list[Item], n: int = 10) -> tuple[list[Item], list[Item]]:
         bottom_top = list(reversed(bottom_top))
         bottom_bottom = list(reversed(bottom_bottom))
         
-        recursed_top, recursed_bottom = sort(top_top + top_bottom, n)
+        recursed_top, recursed_bottom = sort(top_top + top_bottom, live)
 
         return recursed_top, recursed_bottom + [arr[pivot_index]] + bottom_top + bottom_bottom
     

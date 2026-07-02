@@ -1,27 +1,31 @@
 import readchar
 import rich
 from rich.panel import Panel
+from rich.live import Live
 from listsort.models import Item, SortMode
 
 item_colour = "#A5D6FF"
 pivot_colour = {SortMode.ROUGH: "#FF7B72", SortMode.TOP: "#D2A8FF"}
+# displayed_choices = 5
 
 
 def display(item: Item, colour: str) -> str:
     return f"[{colour}]{item.entry}[/]"
 
-def compare(item: Item, pivot: Item, above: bool, mode: SortMode) -> bool | None:
+def compare(item: Item, pivot: Item, above: bool, mode: SortMode, live: Live) -> bool | None:
     """Ask user to compare pair of displayed items"""
 
     colour = pivot_colour[mode]
 
-    # TODO abstract away below to function
+    # TODO output past comparisonslive.update(
+
+    # TODO abstract away following block to function
     if above:
-        # TODO modify to sequence of panels
-        rich.print(Panel(display(item, item_colour) + "\n\n" + display(pivot, colour), border_style="dim"))
+        # TODO modify to sequence of panels 
+        live.update(Panel(display(item, item_colour) + "\n\n" + display(pivot, colour), border_style="dim"))
     else:
         # TODO modify to sequence of panels
-        rich.print(Panel(display(pivot, colour) + "\n\n" + display(item, item_colour), border_style="dim"))
+        live.update(Panel(display(pivot, colour) + "\n\n" + display(item, item_colour), border_style="dim"))
 
     while True:
         key = readchar.readkey()

@@ -16,6 +16,6 @@ class SortMode(Enum):
 class Record:
         key: str
         mode: SortMode
-        above: bool
+        above: bool | None
         pivot: Item
         item: Item
