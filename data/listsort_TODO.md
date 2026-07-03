@@ -1,8 +1,12 @@
-1. display choice
 1. Add option to go back
 1. Add option to edit entry
 1. create Safari bookmark type
 1. launch link
+1. Better visuals:
+    - background colour for pivot row
+    - gradient for old choices
+    - put ✅ and ❌ next panels (perhaps have 🔳 next to current panel)
+    - one large panel 
 1. add functionality to exit program → ask if keep current progress 
 1. add progressive fading to sorted entries
 1. add progress bar

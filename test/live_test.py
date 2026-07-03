@@ -10,7 +10,7 @@ import time
 
 items = ["Buy groceries", "Call dentist", "Sort inbox", "Clean bedroom"]
 
-with Live() as live:
+with Live(refresh_per_second=10) as live:
     for i, item in enumerate(items):
         # Each call to live.update() replaces what's on screen
         live.update(

@@ -29,12 +29,14 @@ def main(unsorted_list_as_text: str, file_extension: str) -> str:
 
     report_duplicates(duplicates)
 
-    # TODO initialise `log`
+    log = []
 
     with Live(refresh_per_second=10) as live:
-        sorted_top, rest = sort(unsorted_list, live)
+        sorted_top, rest = sort(unsorted_list, live, log)
         live.update(Panel("[green]Done![/green]")) # TODO change hew of green
         time.sleep(1)
+
+    print(log)
 
     return serialize(sorted_top, rest)
 
