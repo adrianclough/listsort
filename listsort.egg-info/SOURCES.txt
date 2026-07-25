@@ -1,6 +1,7 @@
 pyproject.toml
 listsort/__init__.py
 listsort/file_io.py
+listsort/formats.py
 listsort/interaction.py
 listsort/main.py
 listsort/models.py

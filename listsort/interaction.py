@@ -16,7 +16,7 @@ def displayed_item(item: Item, colour: str) -> str:
 
 def choices_panels(log: list[Record], n: int = 5) -> list[Panel]:
     choices = []
-    for record in log[-n:]:                 # TODO refactor
+    for record in log[-n:]:                 # TODO refactor: code is cluttered, and recomputing all 5 panels every time is inefficient. 
         colour = pivot_colour[record.mode]
         if record.above:
             if record.key == readchar.key.UP:
@@ -31,7 +31,12 @@ def choices_panels(log: list[Record], n: int = 5) -> list[Panel]:
             elif record.key == readchar.key.DOWN:
                 choices.append(Panel("\n\n" + displayed_item(record.pivot, colour) + "\n\n" + displayed_item(record.item, item_colour) + " ✅", border_style="dim"))
             elif record.key == readchar.key.BACKSPACE:
-                choices.append(Panel(f"[strike]{displayed_item(record.item, item_colour)}[/strike]" + "\n\n" + displayed_item(record.pivot, colour) + "\n\n", border_style="dim"))
+                choices.append(Panel( "\n\n" + displayed_item(record.pivot, colour) + "\n\n" + f"[strike]{displayed_item(record.item, item_colour)}[/strike]", border_style="dim"))
+            # elif record.key == readchar.key.BACKSPACE:
+            #     text = "\n\n" + displayed_item(record.pivot, colour) + "\n\n" + f"[strike]{displayed_item(record.item, item_colour)}[/strike]"
+            #     with open("/tmp/listsort_debug.log", "a") as f:
+            #         f.write(repr(text) + "\n")
+            #         choices.append(Panel(text, border_style="dim"))
 
     return choices
 

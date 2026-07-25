@@ -36,7 +36,7 @@ def main(unsorted_list_as_text: str, file_extension: str) -> str:
         live.update(Panel("[green]Done![/green]")) # TODO change hew of green
         time.sleep(1)
 
-    print(log)
+    # print(log)
 
     return serialize(sorted_top, rest)
 
